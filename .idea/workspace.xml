@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD:.idea/workspace.xml
     <list default="true" id="e9c33067-d764-4383-9a50-b2b03c8ce307" name="Default Changelist" comment="" />
+=======
+    <list default="true" id="f3f91d4e-f13e-4a19-86c3-4d51da63aadf" name="Default Changelist" comment="" />
+>>>>>>> parent of 84c69f9 (adil):HelloWorld/.idea/workspace.xml
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,6 +45,19 @@
       </method>
     </configuration>
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -48,8 +65,13 @@
       <created>1646855841576</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
+<<<<<<< HEAD:.idea/workspace.xml
       <updated>1646855841576</updated>
       <workItem from="1646855842709" duration="10000" />
+=======
+      <updated>1646853197811</updated>
+      <workItem from="1646853199526" duration="50000" />
+>>>>>>> parent of 84c69f9 (adil):HelloWorld/.idea/workspace.xml
     </task>
     <servers />
   </component>
