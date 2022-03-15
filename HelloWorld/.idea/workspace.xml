@@ -37,13 +37,26 @@
     <property name="aspect.path.notification.shown" value="true" />
   </component>
   <component name="RunManager">
+<<<<<<< Updated upstream:HelloWorld/.idea/workspace.xml
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+=======
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="untitled1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+>>>>>>> Stashed changes:untitled1/.idea/workspace.xml
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -56,10 +69,16 @@
       <created>1646853197811</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
+<<<<<<< Updated upstream:HelloWorld/.idea/workspace.xml
       <updated>1646853197811</updated>
       <workItem from="1646853199526" duration="50000" />
       <workItem from="1646855321164" duration="467000" />
       <workItem from="1646855799650" duration="23000" />
+=======
+      <updated>1647281647559</updated>
+      <workItem from="1647281648774" duration="2822000" />
+      <workItem from="1647364223000" duration="16000" />
+>>>>>>> Stashed changes:untitled1/.idea/workspace.xml
     </task>
     <servers />
   </component>
