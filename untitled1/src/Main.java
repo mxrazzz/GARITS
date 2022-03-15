@@ -5,7 +5,6 @@ public class Main {
 
         LoginForm loginForm = new LoginForm(null);
         //Login.LoginMethod();
-        System.out.println("test");
 
     }
 }
