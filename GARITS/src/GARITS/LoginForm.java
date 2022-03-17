@@ -5,13 +5,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-
+//too much duplication required - need to create database queries each time
 
 public class LoginForm extends JDialog{
     private JTextField username;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JPanel loginPanel;
+    public User user;
 
     public LoginForm(JFrame parent){
         super(parent);
@@ -23,31 +24,34 @@ public class LoginForm extends JDialog{
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         loginButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String name = username.getText();
-            String password = String.valueOf(passwordField.getPassword());
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String login = username.getText();
+                String password = String.valueOf(passwordField.getPassword());
+                String role = "";
 
-            user = getAuthenticatedUser(name, password);
+                user = getAuthenticatedUser(login, password);
 
-            if (user != null) {
-                dispose();
+                if (user != null) {
+                    user = retrieveRole(user);
+                    System.out.println(user.role);
+                    dispose();
+                }
+                else {
+                    JOptionPane.showMessageDialog(LoginForm.this,
+                            "Username or Password Invalid",
+                            "Try again",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
-            else {
-                JOptionPane.showMessageDialog(LoginForm.this,
-                        "Email or Password Invalid",
-                        "Try again",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    });
+        });
 
-    setVisible(true);
-}
+        setVisible(true);
+    }
 
-    public User user;
-    private User getAuthenticatedUser(String name, String password) {
-        User user = null;
+
+    private User getAuthenticatedUser(String login, String password) {
+        //User user = null;
 
         final String DB_URL = "jdbc:mysql://localhost/garits";
         final String USERNAME = "root";
@@ -58,18 +62,57 @@ public class LoginForm extends JDialog{
             // Connected to database successfully...
 
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM users WHERE name=? AND password=?";
+            String sql = "SELECT * FROM users WHERE login=? AND password=?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, name);
+            preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
+            //create a class to query MySQL which allows for multiple prepared statements to be
+            //sent via array. A for loop should be used to add the
+            // relevant variables (column names) to the String sql, I think
+
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 user = new User();
-                user.name = resultSet.getString("name");
+                user.login = resultSet.getString("login");
                 user.password = resultSet.getString("password");
             }
+
+
+            stmt.close();
+            conn.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+        return user;
+    }
+
+    private User retrieveRole(User user){
+
+        final String DB_URL = "jdbc:mysql://localhost/garits";
+        final String USERNAME = "root";
+        final String PASSWORD = "";
+
+        try{
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            // Connected to database successfully...
+
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT jobRole FROM users WHERE login=?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, user.login);
+
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user.role = resultSet.getString("jobRole");
+            }
+            //user.role = resultSet.getString("jobRole");
+
 
             stmt.close();
             conn.close();
@@ -81,5 +124,6 @@ public class LoginForm extends JDialog{
 
         return user;
 
-}
+    }
+
 }
