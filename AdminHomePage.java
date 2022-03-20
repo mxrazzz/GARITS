@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-public class AdminHomePage extends JDialog {
+public class AdminHomePage extends JFrame {
     private JButton deleteUserBtn;
     private JButton addUserBtn;
     private JButton restoreDbBtn;
@@ -15,15 +15,29 @@ public class AdminHomePage extends JDialog {
     private JPanel adminHomePanel;
     public User user;
 
-    public AdminHomePage(JFrame parent){
-        super(parent);
-        setTitle("Admin Screen");
-        setContentPane(adminHomePanel);
-        setMinimumSize(new Dimension(720,480));
-        setModal(true);
-        setLocationRelativeTo(parent);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setVisible(true);
+    public AdminHomePage(){
+        JFrame frame = new JFrame();
+        frame.add(adminHomePanel, BorderLayout.CENTER);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Admin Screen");
+        frame.setSize(720,480);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setVisible(true);
 
+
+        addUserBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddUserPage addUserPage = new AddUserPage();
+
+            }
+        });
+        deleteUserBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DeleteUserPage deleteUserPage = new DeleteUserPage();
+            }
+        });
     }
 }
