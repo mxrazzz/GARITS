@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-//too much duplication required - need to create database queries each time
+ //too much duplication required - need to create database queries each time
 
 public class LoginForm extends JDialog{
     private JTextField username;
@@ -14,67 +14,62 @@ public class LoginForm extends JDialog{
     private JPanel loginPanel;
     public User user;
 
-    public LoginForm(){
-        //setting up the frame
-        JFrame frame = new JFrame();
-        frame.add(loginPanel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Login Screen");
-        frame.setSize(720,480);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setVisible(true);
+    public LoginForm(JFrame parent){
+        super(parent);
+        setTitle("Login Screen");
+        setContentPane(loginPanel);
+        setMinimumSize(new Dimension(720,480));
+        setModal(true);
+        setLocationRelativeTo(parent);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String login = username.getText();
-                String password = String.valueOf(passwordField.getPassword());
-                String role = "";
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String login = username.getText();
+            String password = String.valueOf(passwordField.getPassword());
+            String role = "";
 
-                user = getAuthenticatedUser(login, password);
+            user = getAuthenticatedUser(login, password);
 
-                if (user != null) {
-                    user = retrieveRole(user);
-                    System.out.println(user.role);
-                    if(user.role.equals("Administrator")){
-                        //AdminHomePage adminHomePage = new AdminHomePage(null);
-                        frame.dispose();
-                        AdminHomePage adminHomePage = new AdminHomePage();
-                    }
-                    else if (user.role.equals("Mechanic")){
-                        frame.dispose();
-                    }
-                    else if (user.role.equals("Franchisee")){
-                        frame.dispose();
-                        //Franchisee franchiseeHomePage = new Franchisee();
-
-                    }
-                    else if (user.role.equals("Foreman")){
-                        frame.dispose();
-                    }
-                    else if (user.role.equals("Receptionist")){
-                        frame.dispose();
-
-                    }
-
-                    dispose();
+            if (user != null) {
+                user = retrieveRole(user);
+                System.out.println(user.role);
+                if(user.role.equals("Administrator")){
+                    AdminHomePage adminHomePage = new AdminHomePage();
                 }
-                else {
-                    JOptionPane.showMessageDialog(LoginForm.this,
-                            "Username or Password Invalid",
-                            "Try again",
-                            JOptionPane.ERROR_MESSAGE);
-                }
+                dispose();
             }
-        });
 
+            if (user != null) {
+                user = retrieveRole(user);
+                System.out.println(user.role);
+                if(user.role.equals("Mechanic")){
+                    MechanicHomePage mechanicHomePage = new MechanicHomePage(null);
+                }
+                dispose();
+            }
 
-    }
+            if (user != null) {
+                user = retrieveRole(user);
+                System.out.println(user.role);
+                dispose();
+            }
+            else {
+                JOptionPane.showMessageDialog(LoginForm.this,
+                        "Username or Password Invalid",
+                        "Try again",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    });
+
+    setVisible(true);
+}
 
 
     private User getAuthenticatedUser(String login, String password) {
-
+        //User user = null;
 
         final String DB_URL = "jdbc:mysql://localhost/garits";
         final String USERNAME = "root";
@@ -85,7 +80,7 @@ public class LoginForm extends JDialog{
             // Connected to database successfully...
 
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM users WHERE BINARY login=? AND BINARY password=?";
+            String sql = "SELECT * FROM users WHERE login=? AND password=?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
