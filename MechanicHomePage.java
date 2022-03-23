@@ -11,20 +11,29 @@ public class MechanicHomePage extends JDialog {
     private JButton alterJobStatusButton;
     public User user;
 
-    public MechanicHomePage(JFrame parent){
-        super(parent);
+    public MechanicHomePage(){
+       /* super(parent);
         setTitle("Mechanic Screen");
         setContentPane(mechanicHomePanel);
         setMinimumSize(new Dimension(720,480));
         setModal(true);
         setLocationRelativeTo(parent);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE); */
+        JFrame frame = new JFrame();
+        frame.add(mechanicHomePanel, BorderLayout.CENTER);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Mechanic Home Screen");
+        frame.setSize(720,480);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setVisible(true);
 
 
         viewJobsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewJobsPage viewJobsPage = new ViewJobsPage(null);
+                frame.dispose();
+                new ViewJobsPage();
 
             }
         });
@@ -32,11 +41,11 @@ public class MechanicHomePage extends JDialog {
         alterJobStatusButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AlterJobStatusPage alterJobStatusPage = new AlterJobStatusPage(null);
+                frame.dispose();
+                new AlterJobStatusPage();
 
             }
         });
-        setVisible(true);
     }
 }
 
